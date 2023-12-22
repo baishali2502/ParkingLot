@@ -50,4 +50,26 @@ public class ParkingLotTest {
         assertTrue("Car should be unparked successfully", result);
         assertEquals("Parking lot should have no parked cars", 0, parkingLot.getParkedCarsCount());
     }
+    /**
+     * Test case: Notify When Lot is Full
+     *
+     * @desc Ensures that the parking lot owner is notified when the lot is full.
+     * @params ParkingLot with a capacity and a mocked ParkingLotOwner instance.
+     * @returns True if the owner is notified when the lot is full, false otherwise.
+     */
+    @Test
+    public void testNotifyWhenLotIsFull() {
+        // Arrange
+        ParkingLotOwner parkingLotOwner = mock(ParkingLotOwner.class);
+        ParkingLot parkingLot = new ParkingLot(1, parkingLotOwner); // Set capacity to 1 for testing
+        Car car = mock(Car.class);
+
+        // Act
+        parkingLot.parkCar(car); // Park the first car
+        boolean result = parkingLot.parkCar(mock(Car.class)); // Attempt to park the second car
+
+        // Assert
+        assertTrue("Owner should be notified when the lot is full", result);
+        verify(parkingLotOwner, times(1)).notifyLotFull(); // Verify that the owner is notified
+    }
 }
