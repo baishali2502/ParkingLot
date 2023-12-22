@@ -34,7 +34,17 @@ public class ParkingLot {
             return false; // Parking lot is full
         }
     }
-
+    
+    /**
+     * @desc Unparks a car from the parking lot.
+     *
+     * @param car The car to be unparked.
+     * @return True if the car is unparked successfully, false if the car is not found.
+     */
+    public boolean unparkCar(Car car) {
+        return parkedCars.remove(car);
+    }
+    
     /**
      * @desc Gets the number of cars currently parked in the parking lot.
      *
