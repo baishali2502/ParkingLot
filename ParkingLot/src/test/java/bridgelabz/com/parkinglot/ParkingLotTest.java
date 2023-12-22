@@ -67,9 +67,9 @@ public class ParkingLotTest {
         // Act
         parkingLot.parkCar(car); // Park the first car
         boolean result = parkingLot.parkCar(mock(Car.class)); // Attempt to park the second car
-
+        System.out.print(result);
         // Assert
-        assertTrue("Owner should be notified when the lot is full", result);
+        assertFalse("Owner should be notified when the lot is full", result);
         verify(parkingLotOwner, times(1)).notifyLotFull(); // Verify that the owner is notified
     }
 }

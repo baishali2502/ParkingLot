@@ -9,6 +9,7 @@ import java.util.List;
 public class ParkingLot {
     private int capacity;
     private List<Car> parkedCars;
+    private ParkingLotOwner owner;
 
     /**
      * @desc Constructs a parking lot with a specified capacity.
@@ -19,7 +20,17 @@ public class ParkingLot {
         this.capacity = capacity;
         this.parkedCars = new ArrayList<>();
     }
-
+    /**
+     * @desc Constructs a parking lot with a specified capacity and owner.
+     *
+     * @param capacity The maximum number of cars the parking lot can accommodate.
+     * @param owner The owner of the parking lot.
+     */
+    public ParkingLot(int capacity, ParkingLotOwner owner) {
+        this.capacity = capacity;
+        this.parkedCars = new ArrayList<>();
+        this.owner = owner;
+    }
 	/**
      * @desc Parks a car in the parking lot.
      *
@@ -31,6 +42,7 @@ public class ParkingLot {
             parkedCars.add(car);
             return true; // Car parked successfully
         } else {
+            owner.notifyLotFull(); // Notify owner when the lot is full
             return false; // Parking lot is full
         }
     }
