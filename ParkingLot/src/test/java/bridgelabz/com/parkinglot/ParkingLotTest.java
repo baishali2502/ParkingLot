@@ -97,4 +97,28 @@ public class ParkingLotTest {
        assertFalse("Security personnel should be notified when the lot is full", result);
        verify(securityPersonnel, times(1)).notifyLotFull(); // Verify that security personnel is notified
    }
+   /**
+    * Test case: Notify Owner When Lot Has Space Again
+    *            i.e notify whenever a car unparks
+    *
+    * @desc Ensures that the parking lot owner is notified when the lot has space again.
+    * @params ParkingLot with a capacity, owner, and a previously parked car.
+    * @returns True if the owner is notified when the lot has space again, false otherwise.
+    */
+   @Test
+   public void testNotifyOwnerWhenLotHasSpaceAgain() {
+       // Arrange
+	   SecurityPersonnel securityPersonnel = mock(SecurityPersonnel.class);
+       ParkingLotOwner parkingLotOwner = mock(ParkingLotOwner.class);
+       ParkingLot parkingLot = new ParkingLot(1, parkingLotOwner, securityPersonnel); // Set capacity to 1 for testing
+       Car car = mock(Car.class);
+       
+       parkingLot.parkCar(car);
+
+       // Act
+       parkingLot.unparkCar(car); // Unpark the car
+
+       // Assert
+       verify(parkingLotOwner, times(1)).notifyLotHasSpaceAgain(); // Verify that the owner is notified
+   }
 }
