@@ -60,8 +60,9 @@ public class ParkingLotTest {
     @Test
     public void testNotifyWhenLotIsFull() {
         // Arrange
+    	SecurityPersonnel securityPersonnel = mock(SecurityPersonnel.class);
         ParkingLotOwner parkingLotOwner = mock(ParkingLotOwner.class);
-        ParkingLot parkingLot = new ParkingLot(1, parkingLotOwner); // Set capacity to 1 for testing
+        ParkingLot parkingLot = new ParkingLot(1, parkingLotOwner, securityPersonnel); // Set capacity to 1 for testing
         Car car = mock(Car.class);
 
         // Act
@@ -82,13 +83,15 @@ public class ParkingLotTest {
    @Test
    public void testNotifySecurityWhenLotIsFull() {
        // Arrange
-       SecurityPersonnel securityPersonnel = mock(SecurityPersonnel.class);
-       ParkingLot parkingLot = new ParkingLot(1, securityPersonnel); // Set capacity to 1 for testing
+	   SecurityPersonnel securityPersonnel = mock(SecurityPersonnel.class);
+       ParkingLotOwner parkingLotOwner = mock(ParkingLotOwner.class);
+       ParkingLot parkingLot = new ParkingLot(1, parkingLotOwner, securityPersonnel); // Set capacity to 1 for testing
        Car car = mock(Car.class);
 
        // Act
        parkingLot.parkCar(car); // Park the first car
        boolean result = parkingLot.parkCar(mock(Car.class)); // Attempt to park the second car
+       System.out.println(result);
        // result should be false , indicating 2nd car cannot be parked as lot is full
        // Assert
        assertFalse("Security personnel should be notified when the lot is full", result);
