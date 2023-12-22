@@ -30,5 +30,12 @@ public class ParkingLotOwner {
     public void notifyLotFull() {
         System.out.println("Owner " + ownerName + ": Parking lot is full. Put out the full sign!");
     }
+
+    /*
+    * @desc Notifies the owner that the parking lot has space again.
+    */
+   public void notifyLotHasSpaceAgain() {
+       System.out.println("Owner " + ownerName + ": Parking lot has space again. Take down the full sign!");
+   }
 }
 

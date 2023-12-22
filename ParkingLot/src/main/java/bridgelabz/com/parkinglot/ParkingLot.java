@@ -78,8 +78,12 @@ public class ParkingLot {
 	 *         found.
 	 */
 	public boolean unparkCar(Car car) {
-		return parkedCars.remove(car);
-	}
+        boolean result = parkedCars.remove(car);
+        if (result) {
+            owner.notifyLotHasSpaceAgain(); // Notify owner when the lot has space again
+        }
+        return result;
+    }
 
 	/**
 	 * @desc Gets the number of cars currently parked in the parking lot.

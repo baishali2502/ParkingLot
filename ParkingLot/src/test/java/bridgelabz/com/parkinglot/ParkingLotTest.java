@@ -39,9 +39,12 @@ public class ParkingLotTest {
     @Test
     public void testUnparkCar() {
         // Arrange
-        ParkingLot parkingLot = new ParkingLot(1);
+    	SecurityPersonnel securityPersonnel = mock(SecurityPersonnel.class);
+        ParkingLotOwner parkingLotOwner = mock(ParkingLotOwner.class);
+        ParkingLot parkingLot = new ParkingLot(1, parkingLotOwner, securityPersonnel); // Set capacity to 1 for testing
         Car car = mock(Car.class);
-        parkingLot.parkCar(car);
+        
+        parkingLot.parkCar(car); // park a car
 
         // Act
         boolean result = parkingLot.unparkCar(car);
