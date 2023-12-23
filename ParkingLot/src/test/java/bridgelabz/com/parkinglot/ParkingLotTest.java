@@ -5,6 +5,8 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
+import java.util.Map;
+
 /**
  * Test class for the ParkingLot class.
  */
@@ -157,5 +159,32 @@ public class ParkingLotTest
        // Assert
        assertTrue("Car should be parked successfully", result);
        verify(parkingAttendant, times(1)).parkCarAtPosition(car, 3); // Verify that parkingAttendant is called with the correct parameters
+   }
+   /**
+    * Test case: Driver Finds Car by Plate Number
+    *
+    * @desc Ensures that a driver can find their car in the parking lot based on the plate number.
+    * @params ParkingLot with a capacity, owner, security personnel, and a parked car with a known plate number.
+    * @returns A Map.Entry containing the found car and its position if found, null otherwise.
+    */
+   @Test
+   public void testDriverFindsCarByPlateNumber() {
+       // Arrange
+       ParkingLot parkingLot = new ParkingLot(10, parkingLotOwner, securityPersonnel, parkingAttendant);
+
+       // Updated Car constructor with additional parameters
+       Car car = new Car("ABC123", "Toyota", "Camry", "Blue");
+       parkingLot.parkCarWithAttendant(car, 1);
+
+       // Act
+       Map.Entry<Car, Integer> result = parkingLot.findCarByPlateNumber("ABC123");
+
+       // Assert
+       assertNotNull("Car should be found", result);
+       assertEquals("Found car plate number should match", "ABC123", result.getKey().getLicensePlate());
+       assertEquals("Found car make should match", "Toyota", result.getKey().getMake());
+       assertEquals("Found car model should match", "Camry", result.getKey().getModel());
+       assertEquals("Found car color should match", "Blue", result.getKey().getColor());
+       assertEquals("Found car position should match", 1, result.getValue().intValue());
    }
 }
