@@ -151,7 +151,7 @@ public class ParkingLotTest
        // Act
        when(parkingAttendant.parkCarAtPosition(car, 3)).thenReturn(true); // Mock parking result
        
-       boolean result = parkingLot.parkCarWithStrategy(car, 3);
+       boolean result = parkingLot.parkCarWithAttendant(car, 3);
 
        // Assert
        assertTrue("Car should be parked successfully", result);
