@@ -1,7 +1,9 @@
 package bridgelabz.com.parkinglot;
 
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Represents a parking lot.
@@ -127,5 +129,5 @@ public class ParkingLot
 	public int getParkedCarsCount() {
 		return parkedCars.size();
 	}
-	
+
 }

@@ -24,7 +24,7 @@ public class Car {
         this.model = model;
         this.color = color;
     }
-
+    
     /**
      * @desc Gets the license plate of the car.
      *
