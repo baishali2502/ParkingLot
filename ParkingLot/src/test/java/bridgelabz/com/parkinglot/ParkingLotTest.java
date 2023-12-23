@@ -7,7 +7,18 @@ import static org.mockito.Mockito.*;
 /**
  * Test class for the ParkingLot class.
  */
-public class ParkingLotTest {
+public class ParkingLotTest 
+{
+	private ParkingLotOwner parkingLotOwner;
+    private SecurityPersonnel securityPersonnel;
+    private ParkingAttendant parkingAttendant;
+
+    @Before
+    public void setUp() {
+        parkingLotOwner = mock(ParkingLotOwner.class);
+        securityPersonnel = mock(SecurityPersonnel.class);
+        parkingAttendant = mock(ParkingAttendant.class);
+    }
 
     /**
      * Test case: Park a Car
@@ -123,5 +134,27 @@ public class ParkingLotTest {
 
        // Assert
        verify(parkingLotOwner, times(1)).notifyLotHasSpaceAgain(); // Verify that the owner is notified
+   }
+   /**
+    * Test case: Parking Attendant Parks Cars with Position
+    *
+    * @desc Ensures that the parking attendant can park cars with a specified position.
+    * @params ParkingLot with a capacity, owner, security personnel, and a mocked ParkingAttendant instance.
+    * @returns True if the parking attendant can park cars with a specified position, false otherwise.
+    */
+   @Test
+   public void testParkingAttendantWithPosition() {
+       // Arrange
+       ParkingLot parkingLot = new ParkingLot(10, parkingLotOwner, securityPersonnel, parkingAttendant);
+       Car car = mock(Car.class);
+
+       // Act
+       when(parkingAttendant.parkCarAtPosition(car, 3)).thenReturn(true); // Mock parking result
+       
+       boolean result = parkingLot.parkCarWithStrategy(car, 3);
+
+       // Assert
+       assertTrue("Car should be parked successfully", result);
+       verify(parkingAttendant, times(1)).parkCarAtPosition(car, 3); // Verify that parkingAttendant is called with the correct parameters
    }
 }
