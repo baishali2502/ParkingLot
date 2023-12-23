@@ -1,5 +1,7 @@
 package bridgelabz.com.parkinglot;
 
+import java.time.Instant;
+
 /*
  * Represents a car.
  */
@@ -9,6 +11,8 @@ public class Car {
     private String make;
     private String model;
     private String color;
+    private Instant parkedTime;
+    private Instant unparkedTime; // New attribute for tracking the time when the car was unparked
 
     /**
      * @desc Constructs a car with the specified details.
@@ -60,5 +64,21 @@ public class Car {
     public String getColor() {
         return color;
     }
+    // @desc Getter and setter for parkedTime
+    public Instant getParkedTime() {
+        return parkedTime;
+    }
 
+    public void setParkedTime(Instant parkedTime) {
+        this.parkedTime = parkedTime;
+    }
+
+    // @desc Getter and setter for unparkedTime
+    public Instant getUnparkedTime() {
+        return unparkedTime;
+    }
+
+    public void setUnparkedTime(Instant unparkedTime) {
+        this.unparkedTime = unparkedTime;
+    }
 }

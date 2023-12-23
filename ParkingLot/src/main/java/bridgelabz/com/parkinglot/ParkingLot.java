@@ -1,5 +1,7 @@
 package bridgelabz.com.parkinglot;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,7 +55,7 @@ public class ParkingLot
 		this.securityPersonnel = securityPersonnel;
 	}
 	/**
-     * Constructs a parking lot with a specified capacity, owner, security personnel,
+     * @desc Constructs a parking lot with a specified capacity, owner, security personnel,
      * and parking attendant.
      *
      * @param capacity         The maximum number of cars the parking lot can accommodate.
@@ -70,7 +72,7 @@ public class ParkingLot
         this.parkingAttendant = parkingAttendant;
     }
     /**
-     * Parks a car in the parking lot using the specified parking attendant.
+     * @desc Parks a car in the parking lot using the specified parking attendant.
      *
      * @param car      The car to be parked.
      * @param position The position where the car should be parked.
@@ -93,16 +95,17 @@ public class ParkingLot
 	 * @return True if the car is parked successfully, false if the parking lot is
 	 *         full.
 	 */
-	public boolean parkCar(Car car) {
-		if (parkedCars.size() < capacity) {
-			parkedCars.add(car);
-			return true; // Car parked successfully
-		} else {
-			owner.notifyLotFull(); // Notify owner when the lot is full
-			securityPersonnel.notifyLotFull(); // Notify security personnel when the lot is full
-			return false; // Parking lot is full
-		}
-	}
+    public boolean parkCar(Car car) {
+        if (parkedCars.size() < capacity) {
+            car.setParkedTime(Instant.now()); // Set the current timestamp
+            parkedCars.add(car);
+            return true; // Car parked successfully
+        } else {
+            owner.notifyLotFull(); // Notify owner when the lot is full
+            securityPersonnel.notifyLotFull(); // Notify security personnel when the lot is full
+            return false; // Parking lot is full
+        }
+    }
 
 	/**
 	 * @desc Unparks a car from the parking lot.
@@ -111,13 +114,29 @@ public class ParkingLot
 	 * @return True if the car is unparked successfully, false if the car is not
 	 *         found.
 	 */
-	public boolean unparkCar(Car car) {
+    public boolean unparkCar(Car car) {
         boolean result = parkedCars.remove(car);
         if (result) {
+            car.setUnparkedTime(Instant.now()); // Set the unparked time
             owner.notifyLotHasSpaceAgain(); // Notify owner when the lot has space again
         }
         return result;
     }
+    
+    /**
+     * @desc Calculates the parking duration for a car.
+     *
+     * @param car The car for which to calculate the parking duration.
+     * @return The parking duration in seconds, or -1 if the car is not found.
+     */
+    public long calculateParkingDuration(Car car) {
+        if (car.getParkedTime() != null && car.getUnparkedTime() != null) {
+            return Duration.between(car.getParkedTime(), car.getUnparkedTime()).getSeconds();
+        } else {
+            return -1; // Missing time information
+        }
+    }
+
 
 	/**
 	 * @desc Gets the number of cars currently parked in the parking lot.
