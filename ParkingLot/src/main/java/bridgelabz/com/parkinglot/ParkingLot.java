@@ -127,5 +127,19 @@ public class ParkingLot
 	public int getParkedCarsCount() {
 		return parkedCars.size();
 	}
-	
+	/**
+     * Finds a car in the parking lot based on its plate number.
+     *
+     * @param plateNumber The plate number of the car to be found.
+     * @return The position of the found car if found, -1 otherwise.
+     */
+    public int findCarPositionByPlateNumber(String plateNumber) {
+        for (int i = 0; i < parkedCars.size(); i++) {
+            Car car = parkedCars.get(i);
+            if (car.getLicensePlate().equals(plateNumber)) {
+                return i + 1; // Car found, return position
+            }
+        }
+        return -1; // Car not found
+    }	
 }
