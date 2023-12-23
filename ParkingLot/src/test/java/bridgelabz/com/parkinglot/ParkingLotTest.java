@@ -1,5 +1,6 @@
 package bridgelabz.com.parkinglot;
 
+import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
@@ -151,7 +152,7 @@ public class ParkingLotTest
        // Act
        when(parkingAttendant.parkCarAtPosition(car, 3)).thenReturn(true); // Mock parking result
        
-       boolean result = parkingLot.parkCarWithStrategy(car, 3);
+       boolean result = parkingLot.parkCarWithAttendant(car, 3);
 
        // Assert
        assertTrue("Car should be parked successfully", result);
