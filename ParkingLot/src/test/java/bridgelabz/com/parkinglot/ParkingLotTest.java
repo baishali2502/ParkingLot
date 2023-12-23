@@ -182,4 +182,38 @@ public class ParkingLotTest
        // Assert
        assertEquals("Found car position should match", 1, result);
    }
+   /**
+    * Test case: Parking Lot Records Timestamp, Unparks Car, and Calculates Duration
+    *
+    * @desc Ensures that the parking lot records the timestamp when a car is parked,
+    *       unparks the car, and calculates the parking duration.
+    * @params ParkingLot with a capacity, owner, security personnel, and a parked car.
+    */
+   @Test
+   public void testCalculatesDuration() throws InterruptedException {
+       // Arrange
+       ParkingLot parkingLot = new ParkingLot(10, parkingLotOwner, securityPersonnel, parkingAttendant);
+       Car car = new Car("ABC123", "Toyota", "Camry", "Blue");
+
+       // Act
+       boolean isParked = parkingLot.parkCar(car);
+       Thread.sleep(2000); // Simulate 2 seconds parking duration
+       boolean isUnparked = parkingLot.unparkCar(car);
+       long parkingDuration = parkingLot.calculateParkingDuration(car);
+
+       // Assert
+       assertTrue("Car should be parked successfully", isParked);
+       assertNotNull("Car's parked time should not be null", car.getParkedTime());
+       assertTrue("Parked time should be within a reasonable duration",
+               Duration.between(car.getParkedTime(), Instant.now()).getSeconds() < 5);
+
+       assertTrue("Car should be unparked successfully", isUnparked);
+       assertNotNull("Car's unparked time should not be null", car.getUnparkedTime());
+       assertTrue("Unparked time should be within a reasonable duration",
+               Duration.between(car.getUnparkedTime(), Instant.now()).getSeconds() < 5);
+
+       // Calculate and check the parking duration
+       assertTrue("Parking duration should be approximately 2 seconds",
+               parkingDuration > 1 && parkingDuration < 3);
+   }
 }
