@@ -293,4 +293,42 @@ public class ParkingLotTest
 	    verify(parkingLotOwner, never()).notifyLotFull(); // No notifications expected in this case
 	    verify(securityPersonnel, never()).notifyLotFull(); // No notifications expected in this case
    }
+   /**
+    * Test case: Parking Attendant directs large cars to lots with the highest number of free spaces.
+    *
+    * @desc Ensures that the parking attendant prioritizes lots with the highest free spaces for parking large cars.
+    * @params ParkingLot with various capacities, owner, security personnel, and parking attendant.
+    * @returns Verify that large cars are parked in lots with the highest free spaces.
+    */
+   @Test
+   public void testParkingLargeCars() 
+   {
+	   ParkingAttendant parkingAttendantForLargeCars = new ParkingAttendant();
+       // Create three parking lots and a parking attendant
+       ParkingLot lotA = new ParkingLot(5, parkingLotOwner, securityPersonnel, parkingAttendantForLargeCars);
+       ParkingLot lotB = new ParkingLot(4, parkingLotOwner, securityPersonnel, parkingAttendantForLargeCars);
+       ParkingLot lotC = new ParkingLot(10, parkingLotOwner, securityPersonnel, parkingAttendantForLargeCars);
+
+       // Set up the parking lots in the attendant
+       parkingAttendantForLargeCars.setParkingLots(Arrays.asList(lotA, lotB, lotC));
+
+       // Create three large cars
+       Car largeCar1 = new Car("ABC123", "Toyota", "Camry", "Blue");
+       Car largeCar2 = new Car("XYZ456", "Honda", "Civic", "Red");
+       Car largeCar3 = new Car("DEF789", "Ford", "Focus", "Green");       
+
+       // Park the large cars through the ParkingAttendant
+       parkingAttendantForLargeCars.parkCarForLargeCar(largeCar1);
+       parkingAttendantForLargeCars.parkCarForLargeCar(largeCar2);
+       parkingAttendantForLargeCars.parkCarForLargeCar(largeCar3);
+
+       // Assert
+       assertEquals("Lot A should have 1 parked large car", 0, lotA.getLargeCars());
+       assertEquals("Lot B should have 0 parked large cars", 0, lotB.getLargeCars());
+       assertEquals("Lot C should have 2 parked large cars", 3, lotC.getLargeCars());
+
+       // Verify interactions with mocks
+       verify(parkingLotOwner, never()).notifyLotFull(); // No notifications expected in this case
+       verify(securityPersonnel, never()).notifyLotFull(); // No notifications expected in this case
+   }
 }

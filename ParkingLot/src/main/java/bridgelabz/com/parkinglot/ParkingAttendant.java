@@ -140,5 +140,53 @@ public class ParkingAttendant implements ParkingStrategy {
         currentLotIndex = (currentLotIndex + 1) % parkingLots.size();
         return currentLot.getParkedCarsCount();
     }
+    /*
+     * Parks a large car in the parking lot, prioritizing the lot with the highest number of free spaces.
+     *
+     * @param car The large car to be parked.
+     * @return True if the car is parked successfully, false if the parking lot is full.
+     */
+    public int parkCarForLargeCar(Car car) 
+    {
+        ParkingLot targetLot = findLotWithHighestFreeSpace();
+        
+        if (targetLot != null) {
+            boolean parked = targetLot.parkCar(car);
+            if (parked) {
+                // Add the parked car to the list maintained by the attendant for the target lot
+            	targetLot.setLargeCars(targetLot.getLargeCars()+1);
+                List<Car> parkedCarsInTargetLot = targetLot.getParkedCars();
+                parkedCarsInTargetLot.add(car);
+            } else {
+                // Handle the case when the target lot is full
+                System.out.println("Parking Attendant: The target lot is full. Unable to park car " + car.getLicensePlate());
+            }
+        } else {
+            // Handle the case when there are no parking lots available
+            System.out.println("Parking Attendant: No parking lots available. Unable to park car " + car.getLicensePlate());
+        }
+        
+        return targetLot.getLargeCars(); // Parking lot is full or no available lots
+    }
+
+    /**
+     * Finds the parking lot with the highest number of free spaces.
+     *
+     * @return The parking lot with the highest number of free spaces, or null if no lots are available.
+     */
+    private ParkingLot findLotWithHighestFreeSpace() {
+        ParkingLot targetLot = null;
+        int maxFreeSpace = -1;
+
+        for (ParkingLot lot : parkingLots) {
+           if(lot.nearestFreeSpace()>maxFreeSpace)
+           {
+        	   maxFreeSpace = lot.nearestFreeSpace();
+        	   targetLot = lot;
+           }
+        }
+
+        return targetLot;
+    }
 }
 
