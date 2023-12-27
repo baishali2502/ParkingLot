@@ -169,8 +169,7 @@ public class ParkingLot
         }
         return -1; // Car not found
     }	
-
-	/*
+    /*
 	 * @desc:This method returns the nearest available space for a lot
 	 * 
 	 * @returns: nearest available space
@@ -179,6 +178,7 @@ public class ParkingLot
     {
     	return capacity - parkedCars.size();
     }
+	
     
     /*
     @desc:This method returns the capacity of parkingLot

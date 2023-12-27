@@ -91,7 +91,7 @@ public class ParkingAttendant implements ParkingStrategy {
     	return parkingLots;
     }
     /**
-     * Finds the parking lot with the nearest free space.
+     * @desc Finds the parking lot with the nearest free space.
      *
      * @return The parking lot with the nearest free space.
      */
