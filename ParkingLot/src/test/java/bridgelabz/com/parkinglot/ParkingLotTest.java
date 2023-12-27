@@ -323,9 +323,9 @@ public class ParkingLotTest
        parkingAttendantForLargeCars.parkCarForLargeCar(largeCar3);
 
        // Assert
-       assertEquals("Lot A should have 1 parked large car", 0, lotA.getLargeCars());
+       assertEquals("Lot A should have 0 parked large car", 0, lotA.getLargeCars());
        assertEquals("Lot B should have 0 parked large cars", 0, lotB.getLargeCars());
-       assertEquals("Lot C should have 2 parked large cars", 3, lotC.getLargeCars());
+       assertEquals("Lot C should have 3 parked large cars", 3, lotC.getLargeCars());
 
        // Verify interactions with mocks
        verify(parkingLotOwner, never()).notifyLotFull(); // No notifications expected in this case
