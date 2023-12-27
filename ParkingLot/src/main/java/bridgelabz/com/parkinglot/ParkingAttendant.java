@@ -35,12 +35,16 @@ public class ParkingAttendant implements ParkingStrategy {
      * @return True if the car is parked successfully, false otherwise.
      */
     @Override
-    public boolean parkCarAtPosition(Car car, int position) {
-        // Assuming position starts from 1 (not 0)
-        if (position > 0 && position <= parkedCars.size() + 1) {
-            parkedCars.add(position - 1, car);
+    public boolean parkCarAtPosition(Car car, int position) 
+    {
+    	parkedCars = parkingLots.get(0).getParkedCars();
+    	
+        if (position < parkingLots.get(0).getCapacity())
+        {
+            parkedCars.add(position, car);
             return true; // Car parked successfully
-        } else {
+        } else 
+        {
             return false; // Invalid position
         }
     }
@@ -85,6 +89,56 @@ public class ParkingAttendant implements ParkingStrategy {
     public List<ParkingLot> getParkingLots()
     {
     	return parkingLots;
+    }
+    /**
+     * Finds the parking lot with the nearest free space.
+     *
+     * @return The parking lot with the nearest free space.
+     */
+    private ParkingLot findLotWithNearestFreeSpace() 
+    {
+    	int min=Integer.MAX_VALUE;
+    	ParkingLot lot = null;
+        for(ParkingLot p : parkingLots)
+        {
+        	if(min>p.nearestFreeSpace())
+        	{
+        		min = p.nearestFreeSpace();
+        		lot = p;
+        	}
+        }
+        return lot;
+    }
+    /**
+     * @desc Parks a car for a handicap driver using a round-robin strategy among the managed parking lots.
+     * The car is parked in the lot with the nearest available space.
+     *
+     * @param car The car to be parked.
+     * @return True if the car is parked successfully, false otherwise.
+     */
+    
+    public int parkCarForHandicapDriver(Car car)
+    {
+    	if (parkingLots.isEmpty()) {
+            throw new IllegalStateException("No parking lots available");
+        }
+
+        // Use round-robin strategy to distribute cars among parking lots
+        ParkingLot currentLot = findLotWithNearestFreeSpace();
+        boolean parked = currentLot.parkCar(car);
+
+        if (parked) {
+            // Add the parked car to the list maintained by the attendant for the current lot
+            List<Car> parkedCarsInCurrentLot = currentLot.getParkedCars();
+            parkedCars.addAll(parkedCarsInCurrentLot);
+        } else {
+            // Handle the case when the current lot is full
+            System.out.println("Parking Attendant: All lots are full. Unable to park car " + car.getLicensePlate());
+        }
+
+        // Move to the next lot
+        currentLotIndex = (currentLotIndex + 1) % parkingLots.size();
+        return currentLot.getParkedCarsCount();
     }
 }
 
