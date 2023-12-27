@@ -15,8 +15,9 @@ public class ParkingLot
 	private ParkingLotOwner owner;
 	private SecurityPersonnel securityPersonnel;
 	private ParkingAttendant parkingAttendant;
+	private int currentLotIndex;
 	
-	/**
+	/*
 	 * @desc Constructs a parking lot with a specified capacity.
 	 *
 	 * @param capacity The maximum number of cars the parking lot can accommodate.
@@ -26,7 +27,7 @@ public class ParkingLot
 		this.parkedCars = new ArrayList<>();
 	}
 
-	/**
+	/*
 	 * @desc Constructs a parking lot with a specified capacity and owner.
 	 *
 	 * @param capacity The maximum number of cars the parking lot can accommodate.
@@ -70,6 +71,7 @@ public class ParkingLot
         this.owner = owner;
         this.securityPersonnel = securityPersonnel;
         this.parkingAttendant = parkingAttendant;
+       
     }
     /**
      * @desc Parks a car in the parking lot using the specified parking attendant.
@@ -103,6 +105,7 @@ public class ParkingLot
         } else {
             owner.notifyLotFull(); // Notify owner when the lot is full
             securityPersonnel.notifyLotFull(); // Notify security personnel when the lot is full
+            System.out.println("Lot full");
             return false; // Parking lot is full
         }
     }
@@ -123,7 +126,7 @@ public class ParkingLot
         return result;
     }
     
-    /**
+    /*
      * @desc Calculates the parking duration for a car.
      *
      * @param car The car for which to calculate the parking duration.
@@ -138,13 +141,18 @@ public class ParkingLot
     }
 
 
-	/**
+	/*
 	 * @desc Gets the number of cars currently parked in the parking lot.
 	 *
 	 * @return The number of parked cars.
 	 */
 	public int getParkedCarsCount() {
 		return parkedCars.size();
+	}
+	
+	public List<Car> getParkedCars()
+	{
+		return parkedCars;
 	}
 	/**
      * Finds a car in the parking lot based on its plate number.
