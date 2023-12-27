@@ -16,6 +16,7 @@ public class ParkingLot
 	private SecurityPersonnel securityPersonnel;
 	private ParkingAttendant parkingAttendant;
 	private int currentLotIndex;
+	private int largecarsparked;
 	
 	/*
 	 * @desc Constructs a parking lot with a specified capacity.
@@ -188,6 +189,22 @@ public class ParkingLot
     {
     	return capacity;
     }
-    
+	/*
+	@desc Sets no. of largecars in a lot
+	*/   
+    public void setLargeCars(int largecars)
+    {
+    	this.largecarsparked = largecars;
+    }
+
+	/*
+	 * @desc Gives count of large cars parked in a lot
+	 * 
+	 * @returns no. of large cars
+	 */
+    public int getLargeCars()
+    {
+    	return largecarsparked;
+    }    
 
 }
