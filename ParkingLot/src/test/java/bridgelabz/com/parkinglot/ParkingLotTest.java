@@ -428,5 +428,38 @@ public class ParkingLotTest
        assertEquals("The details of the second BMW car should be correct",
                "Location: 3, Plate Number: DEF789, Attendant: John", detailsList.get(1));
    }
+   
+   /**
+    * Test case: Police Department finds cars parked in the last 30 minutes.
+    *
+    * @desc Ensures that the Police Department can retrieve cars parked in the last 30 minutes.
+    * @params ParkingLot with various cars parked.
+    * @returns Verify the cars parked in the last 30 minutes are correctly retrieved.
+    */
+   @Test
+   public void testFindCarsParkedInTheLast30Minutes() {
+       // Create a parking lot
+       ParkingLot parkingLot = new ParkingLot(10, parkingLotOwner, securityPersonnel, parkingAttendant);
+
+       // Create three cars, parked at different times
+       Car car1 = new Car("ABC123", "Toyota", "Camry", "Blue");
+       Car car2 = new Car("XYZ456", "Honda", "Civic", "Red");
+       Car car3 = new Car("DEF789", "Ford", "Focus", "Green");
+
+       // Park the cars at different times
+       parkingLot.parkCar(car1);
+       car2.setParkedTime(car2.getParkedTime().minus(Duration.ofMinutes(45))); // Parked 45 minutes ago
+       parkingLot.parkCar(car2);
+       car3.setParkedTime(car3.getParkedTime().minus(Duration.ofMinutes(15))); // Parked 15 minutes ago
+       parkingLot.parkCar(car3);
+
+       // Find the cars parked in the last 30 minutes
+       List<Car> recentlyParkedCars = parkingLot.findCarsParkedInTheLast30Minutes();
+
+       // Assert
+       assertEquals("There should be 2 cars parked in the last 30 minutes", 2, recentlyParkedCars.size());
+       assertTrue("The recently parked cars should contain car2", recentlyParkedCars.contains(car2));
+       assertTrue("The recently parked cars should contain car3", recentlyParkedCars.contains(car3));
+   }
   
 }
