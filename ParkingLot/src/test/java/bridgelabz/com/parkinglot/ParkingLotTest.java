@@ -360,4 +360,5 @@ public class ParkingLotTest
        assertEquals("There should be 1 parked white car", 1, whiteCarPositions.size());
        assertEquals("The white car should be at position 2", 2, whiteCarPositions.get(0).intValue());
    }
+  
 }
