@@ -205,6 +205,22 @@ public class ParkingLot
     public int getLargeCars()
     {
     	return largecarsparked;
-    }    
+    }  
+    
+    /**
+     * @desc Finds the locations of all parked white cars in the parking lot.
+     *
+     * @return A list of positions of parked white cars.
+     */
+    public List<Integer> findLocationsOfParkedWhiteCars() {
+        List<Integer> whiteCarPositions = new ArrayList<>();
+        for (int i = 0; i < parkedCars.size(); i++) {
+            Car car = parkedCars.get(i);
+            if (car.getColor().equalsIgnoreCase("white")) {
+                whiteCarPositions.add(i + 1); // Car found, add position
+            }
+        }
+        return whiteCarPositions;
+    }
 
 }

@@ -341,7 +341,7 @@ public class ParkingLotTest
    @Test
    public void testFindLocationsOfParkedWhiteCars() {
        // Create a parking lot
-       ParkingLot parkingLot = new ParkingLot(10, parkingLotOwner, securityPersonnel, null);
+       ParkingLot parkingLot = new ParkingLot(10, parkingLotOwner, securityPersonnel, parkingAttendant);
 
        // Create three cars, one of them is white
        Car car1 = new Car("ABC123", "Toyota", "Camry", "Blue");
