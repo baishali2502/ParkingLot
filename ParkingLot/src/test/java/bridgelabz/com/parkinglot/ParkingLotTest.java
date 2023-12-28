@@ -360,5 +360,39 @@ public class ParkingLotTest
        assertEquals("There should be 1 parked white car", 1, whiteCarPositions.size());
        assertEquals("The white car should be at position 2", 2, whiteCarPositions.get(0).intValue());
    }
+   
+   /**
+    * Test case: Police Department finds the location, plate number, and parking attendant name of all parked blue Toyota cars.
+    *
+    * @desc Ensures that the Police Department can retrieve the details of all parked blue Toyota cars.
+    * @params ParkingLot with various cars parked, including blue Toyota cars.
+    * @returns Verify the details of parked blue Toyota cars are correctly retrieved.
+    */
+   @Test
+   public void testFindDetailsOfParkedBlueToyotaCars() {
+       // Create a parking lot
+       ParkingLot parkingLot = new ParkingLot(10, parkingLotOwner, securityPersonnel, parkingAttendant);
+
+       // Create three cars, two of them are blue Toyota cars
+       Car car1 = new Car("ABC123", "Toyota", "Camry", "Blue");
+       Car car2 = new Car("XYZ456", "Honda", "Civic", "White");
+       Car car3 = new Car("DEF789", "Toyota", "Corolla", "Blue");
+
+       // Park the cars
+       parkingLot.parkCar(car1);
+       parkingLot.parkCar(car2);
+       parkingLot.parkCar(car3);
+
+       // Find the details of parked blue Toyota cars
+       List<String> detailsList = parkingLot.findDetailsOfParkedBlueToyotaCars();
+
+       // Assert
+       assertEquals("There should be 2 parked blue Toyota cars", 2, detailsList.size());
+       assertEquals("The details of the first blue Toyota car should be correct",
+               "Location: 1, Plate Number: ABC123, Attendant: John", detailsList.get(0));
+       assertEquals("The details of the second blue Toyota car should be correct",
+               "Location: 3, Plate Number: DEF789, Attendant: John", detailsList.get(1));
+   }
+   
   
 }
