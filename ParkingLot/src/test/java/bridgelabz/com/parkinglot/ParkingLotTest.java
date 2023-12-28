@@ -395,5 +395,37 @@ public class ParkingLotTest
                "Location: 3, Plate Number: DEF789, Attendant: John", detailsList.get(1));
    }
    
+   /**
+    * Test case: Police Department finds the details of all parked BMW cars.
+    *
+    * @desc Ensures that the Police Department can retrieve the details of all parked BMW cars.
+    * @params ParkingLot with various cars parked, including BMW cars.
+    * @returns Verify the details of parked BMW cars are correctly retrieved.
+    */
+   @Test
+   public void testFindDetailsOfParkedBMW() {
+       // Create a parking lot
+       ParkingLot parkingLot = new ParkingLot(10, parkingLotOwner, securityPersonnel, parkingAttendant);
+
+       // Create three cars, two of them are BMW cars
+       Car car1 = new Car("ABC123", "Toyota", "Camry", "Blue");
+       Car car2 = new Car("XYZ456", "BMW", "X5", "White");
+       Car car3 = new Car("DEF789", "BMW", "M3", "Black");
+
+       // Park the cars
+       parkingLot.parkCar(car1);
+       parkingLot.parkCar(car2);
+       parkingLot.parkCar(car3);
+
+       // Find the details of parked BMW cars
+       List<String> detailsList = parkingLot.findDetailsOfParkedBMW();
+
+       // Assert
+       assertEquals("There should be 2 parked BMW cars", 2, detailsList.size());
+       assertEquals("The details of the first BMW car should be correct",
+               "Location: 2, Plate Number: XYZ456, Attendant: John", detailsList.get(0));
+       assertEquals("The details of the second BMW car should be correct",
+               "Location: 3, Plate Number: DEF789, Attendant: John", detailsList.get(1));
+   }
   
 }
