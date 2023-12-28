@@ -405,12 +405,13 @@ public class ParkingLotTest
    @Test
    public void testFindDetailsOfParkedBMW() {
        // Create a parking lot
+	   ParkingAttendant parkingAttendant = new ParkingAttendant("John");
        ParkingLot parkingLot = new ParkingLot(10, parkingLotOwner, securityPersonnel, parkingAttendant);
 
        // Create three cars, two of them are BMW cars
-       Car car1 = new Car("ABC123", "Toyota", "Camry", "Blue");
-       Car car2 = new Car("XYZ456", "BMW", "X5", "White");
-       Car car3 = new Car("DEF789", "BMW", "M3", "Black");
+       Car car1 = new Car("ABC123", "Toyota", "Camry", "Blue","John");
+       Car car2 = new Car("XYZ456", "BMW", "X5", "White","John");
+       Car car3 = new Car("DEF789", "BMW", "M3", "Black","John");
 
        // Park the cars
        parkingLot.parkCar(car1);

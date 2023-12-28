@@ -239,5 +239,23 @@ public class ParkingLot
         }
         return detailsList;
     }
+    /**
+     * @desc Finds the details of all parked BMW cars.
+     *
+     * @return A list of strings containing the details of each parked BMW car.
+     */
+    public List<String> findDetailsOfParkedBMW() {
+        List<String> detailsList = new ArrayList<>();
+        for (int i = 0; i < parkedCars.size(); i++) {
+            Car car = parkedCars.get(i);
+            if (car.getMake().equalsIgnoreCase("BMW")) {
+                String details = String.format("Location: %d, Plate Number: %s, Attendant: %s",
+                        i + 1, car.getLicensePlate(), car.getParkingAttendantName());
+                detailsList.add(details);
+            }
+        }
+        return detailsList;
+    }
+
 
 }
