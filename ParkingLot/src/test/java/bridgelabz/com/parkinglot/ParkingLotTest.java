@@ -331,4 +331,33 @@ public class ParkingLotTest
        verify(parkingLotOwner, never()).notifyLotFull(); // No notifications expected in this case
        verify(securityPersonnel, never()).notifyLotFull(); // No notifications expected in this case
    }
+   /**
+    * Test case: Police Department finds the location of all parked white cars.
+    *
+    * @desc Ensures that the Police Department can retrieve the positions of all parked white cars.
+    * @params ParkingLot with various cars parked, including white cars.
+    * @returns Verify the positions of parked white cars are correctly retrieved.
+    */
+   @Test
+   public void testFindLocationsOfParkedWhiteCars() {
+       // Create a parking lot
+       ParkingLot parkingLot = new ParkingLot(10, parkingLotOwner, securityPersonnel, null);
+
+       // Create three cars, one of them is white
+       Car car1 = new Car("ABC123", "Toyota", "Camry", "Blue");
+       Car car2 = new Car("XYZ456", "Honda", "Civic", "White");
+       Car car3 = new Car("DEF789", "Ford", "Focus", "Red");
+
+       // Park the cars
+       parkingLot.parkCar(car1);
+       parkingLot.parkCar(car2);
+       parkingLot.parkCar(car3);
+
+       // Find the locations of parked white cars
+       List<Integer> whiteCarPositions = parkingLot.findLocationsOfParkedWhiteCars();
+
+       // Assert
+       assertEquals("There should be 1 parked white car", 1, whiteCarPositions.size());
+       assertEquals("The white car should be at position 2", 2, whiteCarPositions.get(0).intValue());
+   }
 }
