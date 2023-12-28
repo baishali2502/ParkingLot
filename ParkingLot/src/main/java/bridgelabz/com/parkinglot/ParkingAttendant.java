@@ -7,11 +7,18 @@ import java.util.*;
  */
 public class ParkingAttendant implements ParkingStrategy {
 
-     private List<ParkingLot> parkingLots;
+	private String name="";
+    private List<ParkingLot> parkingLots;
     private int currentLotIndex;
     private List<Car> parkedCars; // List of cars parked in the current lot
 
     public ParkingAttendant() {
+        this.parkingLots = new ArrayList<>();
+        this.currentLotIndex = 0;
+        this.parkedCars = new ArrayList<>();
+    }
+    public ParkingAttendant(String name) {
+        this.name = name;
         this.parkingLots = new ArrayList<>();
         this.currentLotIndex = 0;
         this.parkedCars = new ArrayList<>();

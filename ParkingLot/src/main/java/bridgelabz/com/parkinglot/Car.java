@@ -13,6 +13,7 @@ public class Car {
     private String color;
     private Instant parkedTime;
     private Instant unparkedTime; // New attribute for tracking the time when the car was unparked
+    private String parkingAttendantName;
 
     /**
      * @desc Constructs a car with the specified details.
@@ -27,6 +28,21 @@ public class Car {
         this.make = make;
         this.model = model;
         this.color = color;
+    }
+    /**
+     * @desc Constructs a car with the specified details.
+     *
+     * @param licensePlate The license plate of the car.
+     * @param make The make of the car (e.g., Toyota, Honda).
+     * @param model The model of the car.
+     * @param color The color of the car.
+     */
+    public Car(String licensePlate, String make, String model, String color,String parkingAttendantName) {
+        this.licensePlate = licensePlate;
+        this.make = make;
+        this.model = model;
+        this.color = color;
+        this.parkingAttendantName = parkingAttendantName;
     }
 
     /**
@@ -81,4 +97,9 @@ public class Car {
     public void setUnparkedTime(Instant unparkedTime) {
         this.unparkedTime = unparkedTime;
     }
+
+	public String getParkingAttendantName() 
+	{        		
+		return parkingAttendantName;
+	}
 }

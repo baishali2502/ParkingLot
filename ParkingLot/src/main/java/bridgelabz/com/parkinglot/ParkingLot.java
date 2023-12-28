@@ -206,5 +206,38 @@ public class ParkingLot
     {
     	return largecarsparked;
     }    
+ 
+    /**
+     * @desc Finds the locations of all parked white cars in the parking lot.
+     *
+     * @return A list of positions of parked white cars.
+     */
+    public List<Integer> findLocationsOfParkedWhiteCars() {
+        List<Integer> whiteCarPositions = new ArrayList<>();
+        for (int i = 0; i < parkedCars.size(); i++) {
+            Car car = parkedCars.get(i);
+            if (car.getColor().equalsIgnoreCase("white")) {
+                whiteCarPositions.add(i + 1); // Car found, add position
+            }
+        }
+        return whiteCarPositions;
+    }
+    /**
+     * Finds the location, plate number, and parking attendant name of all parked blue Toyota cars.
+     *
+     * @return A list of strings containing the details of each parked blue Toyota car.
+     */
+    public List<String> findDetailsOfParkedBlueToyotaCars() {
+        List<String> detailsList = new ArrayList<>();
+        for (int i = 0; i < parkedCars.size(); i++) {
+            Car car = parkedCars.get(i);
+            if (car.getColor().equalsIgnoreCase("blue") && car.getMake().equalsIgnoreCase("Toyota")) {
+                String details = String.format("Location: %d, Plate Number: %s, Attendant: %s",
+                        i + 1, car.getLicensePlate(), car.getParkingAttendantName());
+                detailsList.add(details);
+            }
+        }
+        return detailsList;
+    }
 
 }
